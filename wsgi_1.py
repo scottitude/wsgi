@@ -2,6 +2,7 @@
 import datetime
 
 default = "No Value Set"
+now = datetime.datetime.now()
 
 body = """<html>
 <head>
@@ -21,11 +22,11 @@ def application(environ, start_response):
 
     response_body = body.format(
         software=environ.get('SERVER_SOFTWARE', default),
-        path="aaaa",
-        month="bbbb",
-        date="cccc",
-        year="dddd",
-        client_ip="eeee"
+        path=environ.get('PATH_INFO', default),
+        month='</p> month: ' + '%d' % now.month,
+        date='</p> date:' + str(now),
+        year='</p> year: ' + '%d' % now.year,
+        client_ip=environ.get('REMOTE_ADDR', default),
     )
     status = '200 OK'
 
